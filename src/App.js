@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import fire from './config/Fire';
+import Login from './components/Login'
+import PlayerComp from './components/PlayerComp'
+import firebase from 'firebase';
 
 class App extends Component {
+  authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ User: user })
+      } else {
+        this.setState({ User: null })
+      }
+    })
+  }
+
+  handelGoogleSiginIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    fire.auth().signInWithPopup(provider).then(data => {
+      fire.firestore().collection("User").doc(data.user.uid).set({
+        displayName: data.user.displayName,
+        email: data.user.email,
+        photoUrl: data.user.photoURL,
+        uid: data.user.uid,
+        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    })
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  state = {
+    User: {},
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {this.state.User == null ? <Login handleGoogleSiginIn={this.handelGoogleSiginIn} /> : <PlayerComp />}
       </div>
     );
   }
