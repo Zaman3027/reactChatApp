@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import fire from '../config/Fire'
 import UserList from './UserList'
 import firebase from 'firebase'
+import '../Css/Home.css'
+
 console.log("uuu", fire.auth().currentUser);
 
 
@@ -69,23 +71,32 @@ class PlayerComp extends Component {
     render() {
 
         return (
-            <div>
-                <button onClick={this.handelSignOut}>Logout</button>
-                <div style={{}}>
+            <div className="mainApp">
+                <div className="header" >
+                    <nav style={{ height: 60 }}>
+                        <button onClick={this.handelSignOut}>Logout</button>
+                    </nav>
+                </div>
+                <div className="userList">
                     {this.state.User.length === 0 ? <p>Loading...</p> : <div>{this.state.User.map((value, index) => (
                         <UserList
                             key={index}
                             index={index}
                             photoUrl={value.photoUrl}
-                            email={value.email}
                             name={value.displayName}
-                            removeUser={()=>this.handelRemoveUser(value.uid)}
+                            removeUser={() => this.handelRemoveUser(value.uid)}
                         />
                     ))}</div>}
                     <button onClick={this.getRandomUser}>Add User</button>
                 </div>
-                <div>
-                    
+                <div className="chatScreen">
+                    <p1>Chat Screen</p1>
+                </div>
+                <div className="firendRequest">
+                    <p1>Friend Request</p1>
+                </div>
+                <div className="footer">
+                    <p1>Footer</p1>
                 </div>
             </div>
         );

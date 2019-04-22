@@ -1,0 +1,36 @@
+.mainApp {
+    height: 720px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-areas:
+        "header header header"
+        "userList chatScreen friendRequest"
+        "footer footer footer"
+}
+
+.header {
+    background: green;
+    grid-area: header;
+}
+
+.userList {
+    grid-area: userList;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.chatScreen {
+    grid-area: chatScreen;
+}
+
+.firendRequest {
+    grid-area: friendRequest;
+    background: pink;
+}
+
+.footer {
+    grid-area: footer;
+    background: blue;
+}

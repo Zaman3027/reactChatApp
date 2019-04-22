@@ -1,5 +1,13 @@
+html {
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+}
+
 .App {
   text-align: center;
+  width: 1300px;
+  margin: auto;
 }
 
 .App-logo {
@@ -26,6 +34,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
