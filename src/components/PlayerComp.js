@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import fire from '../config/Fire'
 import UserList from './UserList'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import '../Css/Home.css'
-
-console.log("uuu", fire.auth().currentUser);
+import ChatScreen from './ChatScreen'
 
 
 class PlayerComp extends Component {
@@ -12,11 +11,17 @@ class PlayerComp extends Component {
         fire.auth().signOut();
     }
     state = {
-        User: []
+        User: [],
+        chatShow: '',
+        userData: null,
+        currentUser: null,
     }
+    
     getUserData = async () => {
-
-        await fire.firestore().collection("User").onSnapshot((next) => {
+        await fire.auth().onAuthStateChanged((user)=>{
+            this.setState({currentUser:user});
+        })
+        await fire.firestore().collection("User").onSnapshot(() => {
             this.setState({ User: [] });
             fire.firestore().collection("User").orderBy("timeStamp", "asc").get().then(doc => {
                 this.setState({ User: [] });
@@ -25,21 +30,14 @@ class PlayerComp extends Component {
                 })
             })
         })
+    }
 
-        /* .orderBy("timeStamp","desc").get().then(doc=>{
-            this.setState({User:[]})
-            doc.forEach(data=>{
-                this.setState({User:[...this.state.User,data.data()]})
-            })
-        }) */
-
-        /* .onSnapshot((next)=>{
-            this.setState({User:[]})
-            next.forEach(doc=>{
-                this.setState({User:[...this.state.User,doc.data()]})
-            })
-        }) */
-
+    handelChatScreen = async (data) => {
+        await this.setState({ chatShow: data });
+        console.log("uid", this.state.chatShow);
+        fire.firestore().collection("User").doc(data).get().then((value) => {
+            this.setState({ userData: value.data() });
+        })
     }
 
     getRandomUser = () => {
@@ -80,6 +78,8 @@ class PlayerComp extends Component {
                 <div className="userList">
                     {this.state.User.length === 0 ? <p>Loading...</p> : <div>{this.state.User.map((value, index) => (
                         <UserList
+                            uid={value.uid}
+                            handelChatScreen={this.handelChatScreen}
                             key={index}
                             index={index}
                             photoUrl={value.photoUrl}
@@ -90,13 +90,15 @@ class PlayerComp extends Component {
                     <button onClick={this.getRandomUser}>Add User</button>
                 </div>
                 <div className="chatScreen">
-                    <p1>Chat Screen</p1>
+                    {this.state.userData == null? (<p>Null</p>) : (<ChatScreen
+                        name={this.state.userData.displayName}
+                    />)}
                 </div>
                 <div className="firendRequest">
-                    <p1>Friend Request</p1>
+                    <p>Friend Request</p>
                 </div>
                 <div className="footer">
-                    <p1>Footer</p1>
+                    <p>Footer</p>
                 </div>
             </div>
         );

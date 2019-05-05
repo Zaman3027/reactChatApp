@@ -8,7 +8,6 @@ import firebase from 'firebase';
 class App extends Component {
   authListener = () => {
     fire.auth().onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
         this.setState({ User: user })
       } else {

@@ -1,0 +1,17 @@
+.mainChatScreen{
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-areas:
+    "chatNavBar chatNavBar chatNavBar"
+    "message message message"
+    "controlBar controlBar controlBar"
+}
+.chatNavBar{
+    grid-area: chatNavBar;
+}
+.message{
+    grid-area: message;
+}
+.controlBar{
+    grid-area: controlBar;
+}
