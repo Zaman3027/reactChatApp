@@ -13,9 +13,9 @@ class ChatScreen extends Component {
                 <div className="message">
                     chat message
                 </div>
-                <div className="controlBar">
-                    <input type='text' />
-                    <button onClick={() => console.log("Send")}>Send</button>
+                <div className="controlBar form-inline">
+                    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" type='text' style={{width:500,marginLeft:20}} />
+                    <button style={{marginLeft:10}} type="button" class="btn btn-success" onClick={() => console.log("Send")}>Send</button>
                 </div>
             </div>
         );

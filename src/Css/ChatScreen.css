@@ -10,8 +10,10 @@
     grid-area: chatNavBar;
 }
 .message{
+    height: 500px;
     grid-area: message;
 }
 .controlBar{
+    position: relative;
     grid-area: controlBar;
 }

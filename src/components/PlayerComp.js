@@ -69,12 +69,12 @@ class PlayerComp extends Component {
     render() {
 
         return (
-            <div className="container mainChatScreen">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark chatNavBar" >
+            <div className="mainApp">
+                <nav className="navbar navbar-dark bg-dark header" >
                     <div class="navbar-brand" href="#">ReactChat app</div>
                     <button type="button" class="btn btn-outline-light mr-auto" onClick={this.handelSignOut}>Logout</button>
                 </nav>
-                <div className="list-group">
+                <div className="list-group userList">
                     {this.state.User.length === 0 ? <p>Loading...</p> : <div>{this.state.User.map((value, index) => (
                         <UserList
                             uid={value.uid}
