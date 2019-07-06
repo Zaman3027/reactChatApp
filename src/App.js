@@ -4,6 +4,7 @@ import fire from './config/Fire';
 import Login from './components/Login'
 import PlayerComp from './components/PlayerComp'
 import firebase from 'firebase';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 class App extends Component {
   authListener = () => {

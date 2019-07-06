@@ -16,10 +16,10 @@ class PlayerComp extends Component {
         userData: null,
         currentUser: null,
     }
-    
+
     getUserData = async () => {
-        await fire.auth().onAuthStateChanged((user)=>{
-            this.setState({currentUser:user});
+        await fire.auth().onAuthStateChanged((user) => {
+            this.setState({ currentUser: user });
         })
         await fire.firestore().collection("User").onSnapshot(() => {
             this.setState({ User: [] });
@@ -69,13 +69,12 @@ class PlayerComp extends Component {
     render() {
 
         return (
-            <div className="mainApp">
-                <div className="header" >
-                    <nav style={{ height: 60 }}>
-                        <button onClick={this.handelSignOut}>Logout</button>
-                    </nav>
-                </div>
-                <div className="userList">
+            <div className="container mainChatScreen">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark chatNavBar" >
+                    <div class="navbar-brand" href="#">ReactChat app</div>
+                    <button type="button" class="btn btn-outline-light mr-auto" onClick={this.handelSignOut}>Logout</button>
+                </nav>
+                <div className="list-group">
                     {this.state.User.length === 0 ? <p>Loading...</p> : <div>{this.state.User.map((value, index) => (
                         <UserList
                             uid={value.uid}
@@ -90,7 +89,7 @@ class PlayerComp extends Component {
                     <button onClick={this.getRandomUser}>Add User</button>
                 </div>
                 <div className="chatScreen">
-                    {this.state.userData == null? (<p>Null</p>) : (<ChatScreen
+                    {this.state.userData == null ? (<p>Null</p>) : (<ChatScreen
                         name={this.state.userData.displayName}
                     />)}
                 </div>

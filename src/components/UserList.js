@@ -3,15 +3,14 @@ import React from 'react'
 export default function UserList(props) {
     var { index, photoUrl, name, removeUser, uid ,handelChatScreen} = props;
     return (
-        <div
+        <div className="card list-group-item"
             onClick={()=>handelChatScreen(uid)}
-            style={{ border: "1px solid black", margin: 10 }}
         >
-            <div>
+            <div className="card-body">
                 <h1>{name}</h1>
                 <img src={photoUrl} alt={index} style={{ width: 40, height: 40 }} />
             </div>
-            <button onClick={removeUser}>Remove User</button>
+            <button type="button" class="btn btn-outline-danger" onClick={removeUser}>Remove User</button>
         </div>
     )
 }
